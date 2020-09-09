@@ -40,31 +40,31 @@ class Graph:
 
         queue.enqueue(starting_vertex) # load starting value into the stack
 
-        while queue.size() > 0:
-            vertex = queue.dequeue()
-            if vertex not in visited:
-                visited.add(vertex)
+        while queue.size() > 0:  # while queue is not empty
+            vertex = queue.dequeue()  # remove the node at the front and set this node as our current vertex/node
+            if vertex not in visited:  # if we have not visited the vertex
+                visited.add(vertex)  # add the vertex to `visited`
                 print(vertex)
-                for neighbors in self.get_neighbors(vertex):
-                    queue.enqueue(neighbors)
+                for neighbors in self.get_neighbors(vertex):  # get the neighboring node
+                    queue.enqueue(neighbors)  # add the `neighbor` node to the queue
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        stack = Stack()
-        visited = set()
+        stack = Stack()  # create a stack
+        visited = set()  # set tracking visited nodes
 
-        stack.push(starting_vertex)
+        stack.push(starting_vertex)  # push the starting node to the stack
 
-        while stack.size() > 0:
-            vertex = stack.pop()
-            if vertex not in visited:
-                visited.add(vertex)
+        while stack.size() > 0:  # while the stack is empty
+            vertex = stack.pop()  # add the top node to the stack
+            if vertex not in visited:  # if the node has not be visited yet
+                visited.add(vertex) # add the node to visited
                 print(vertex)
-                for neighbor in self.get_neighbors(vertex):
-                    stack.push(neighbor)
+                for neighbor in self.get_neighbors(vertex):  # for each neighbor of the current node
+                    stack.push(neighbor)  # add the neighbor node to the stack
 
     def dft_recursive(self, starting_vertex):
         """
@@ -73,20 +73,20 @@ class Graph:
 
         This should be done using recursion.
         """
-        visited = set()
+        visited = set()  # create set for tracking visited nodes
 
-        def dft(vertex):
-            if vertex in visited:
+        def dft(vertex):  # new depth first order function with node args
+            if vertex in visited:  # if the node has been visited, do nothing
                 return
             else:
-                visited.add(vertex)
+                visited.add(vertex)  # if it has not been visited add the current node to `visited`
                 print(vertex)
-            neighbor = self.get_neighbors(vertex)
+            neighbor = self.get_neighbors(vertex)  # create a var that is the neighbors of the current node
 
-            for n in neighbor:
-                dft(n)
+            for n in neighbor:  # for the all the neighbors of the current node
+                dft(n)  # run the neigbor back through this function
 
-        dft(starting_vertex)
+        dft(starting_vertex)  # pass starting node for recursive loop
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -94,21 +94,21 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        queue = Queue()
+        queue = Queue() 
 
-        queue.enqueue([starting_vertex])
+        queue.enqueue([starting_vertex])  # load starting nodes into queue
 
         visited = set()
 
-        while queue.size() > 0:
-            vertex =queue.dequeue()
+        while queue.size() > 0:  # while the queue is empty
+            vertex = queue.dequeue()  # create a var and remove the current node from the queue
 
-            last_vertex = vertex[-1]
+            last_vertex = vertex[-1] # create a var that finds the last node
 
-            if last_vertex in visited:
+            if last_vertex in visited:  # if the last node has been visited, do nothing
                 continue
             else:
-                visited.add(last_vertex)
+                visited.add(last_vertex)  # if the node has not been visited add it to `visited`
 
             for neighbor in self.get_neighbors(last_vertex):
                 next_path = vertex[:]
@@ -185,7 +185,7 @@ class Graph:
                     return found_path
 
             return None
-            
+
         return dfs([starting_vertex])
 
 if __name__ == '__main__':
